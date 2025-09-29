@@ -2,6 +2,13 @@
 <header class="hero-section">
   <h1>🎬 GIF Finder</h1>
   <p class="tagline">Find and share your favorite GIFs!</p>
+  <div>
+    {{#if this.session.isAuthenticated}}
+      <a {{on "click" this.invalidateSession}}>Logout</a>
+    {{else}}
+      <LinkTo @route="login">Login</LinkTo>
+    {{/if}}
+  </div>
 </header>
 {{! This is where all route templates will be rendered }}
 {{outlet}}

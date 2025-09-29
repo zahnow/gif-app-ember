@@ -16,7 +16,7 @@
       {{#if @model.gifs.length}}
         {{#each @model.gifs as |gif|}}
           <div class="gif-section">
-            <LinkTo @route="gif" @model={{gif.id}}>
+            <LinkTo @route="authenticated.gif" @model={{gif.id}}>
               <img
                 src="{{gif.images.fixed_width.url}}"
                 alt="{{gif.title}}"
