@@ -6,7 +6,7 @@
     "format": "prettier --write .",
     "lint:client": "pnpm --filter client lint",
     "lint:server": "pnpm --filter server lint",
-    "dev": "concurrently -k -n client,server -c cyan,magenta \"pnpm --filter client dev\" \"pnpm --filter server dev\""
+    "dev": "concurrently -k -n client,server -c cyan,magenta \"pnpm --filter client start\" \"pnpm --filter server dev\""
   },
   "workspaces": [
     "client",
