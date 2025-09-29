@@ -1,0 +1,33 @@
+{{! This is the home page template }}
+<div class="home-page">
+  <main class="main-content">
+    <section class="search-section">
+      <h2>Search for GIFs</h2>
+      <div class="search-form">
+        <input
+          type="text"
+          placeholder="Search for GIFs..."
+          class="search-input"
+        />
+        <button class="search-button">🔍 Search</button>
+      </div>
+    </section>
+    <section>
+      {{#if @model.gifs.length}}
+        {{#each @model.gifs as |gif|}}
+          <div class="gif-section">
+            <LinkTo @route="gif" @model={{gif.id}}>
+              <img
+                src="{{gif.images.fixed_width.url}}"
+                alt="{{gif.title}}"
+                class="gif-image"
+              />
+            </LinkTo>
+          </div>
+        {{/each}}
+      {{else}}
+        <p>No GIFs found. Try searching for something else!</p>
+      {{/if}}
+    </section>
+  </main>
+</div>

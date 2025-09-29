@@ -4,13 +4,13 @@ import { requireSession } from "../middleware/requireSession";
 const gifRouter: Router = Router();
 
 gifRouter.get("/", async (req, res) => {
-  if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
-    return res.status(401).send("Unauthorized");
-  }
+  // if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
+  //   return res.status(401).send("Unauthorized");
+  // }
 
   try {
     const gifQuery = await fetch(
-      `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}&limit=40&offset=0&rating=g&bundle=messaging_non_clips`,
+      `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}&limit=40&offset=0&rating=g&bundle=messaging_non_clips`
     );
     const gifs = await gifQuery.json();
     res.send(gifs);
@@ -27,7 +27,7 @@ gifRouter.get("/search", requireSession, async (req, res) => {
   }
   try {
     const searchQuery = await fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}&limit=40&offset=0&rating=g&bundle=messaging_non_clips`,
+      `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}&limit=40&offset=0&rating=g&bundle=messaging_non_clips`
     );
     const searchResults = await searchQuery.json();
     res.send(searchResults);
@@ -49,7 +49,7 @@ gifRouter.get("/:id", async (req, res) => {
 
   try {
     const gifQuery = await fetch(
-      `https://api.giphy.com/v1/gifs/${gifId}?api_key=${process.env.GIPHY_API_KEY}`,
+      `https://api.giphy.com/v1/gifs/${gifId}?api_key=${process.env.GIPHY_API_KEY}`
     );
     const gif = await gifQuery.json();
     if (gif.data) {

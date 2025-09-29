@@ -13,7 +13,7 @@ app.use(
     origin: process.env.CORS_ORIGIN || "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-  }),
+  })
 );
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 app.use(express.json());
