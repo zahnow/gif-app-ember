@@ -38,9 +38,9 @@ gifRouter.get("/search", requireSession, async (req, res) => {
 });
 
 gifRouter.get("/:id", async (req, res) => {
-  if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
-    return res.sendStatus(401);
-  }
+  // if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
+  //   return res.sendStatus(401);
+  // }
 
   const gifId = req.params.id;
   if (!gifId) {
