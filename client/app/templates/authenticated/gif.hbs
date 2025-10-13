@@ -1,4 +1,18 @@
-<h1>Gif Page</h1>
-<p>Displaying GIF with ID: {{@model.gif_id}}</p>
-<p>{{@model.gif.title}}</p>
+<h1>{{@model.gif.title}}</h1>
 <img src={{@model.gif.images.original.url}} alt="GIF Image" />
+
+<h2>Your Rating</h2>
+<p>Rating: {{@model.rating}}/5</p>
+
+<h2>Comments</h2>
+<textarea
+  placeholder="Add your comment here..."
+  value={{this.newComment}}
+  {{on "input" this.updateComment}}
+></textarea>
+<button {{on "click" this.submitComment}}>Submit</button>
+<ul>
+  {{#each @model.comments as |comment|}}
+    <li>{{comment.comment.comment}} - {{comment.user}}</li>
+  {{/each}}
+</ul>

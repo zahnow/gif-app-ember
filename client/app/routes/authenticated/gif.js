@@ -6,21 +6,47 @@ export default class GifRoute extends Route {
 
   async model(params) {
     try {
-      let response = await fetch(
+      let gifResponse = await fetch(
         `http://localhost:3001/api/gifs/${params.gif_id}`,
         {
           credentials: 'include',
         },
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!gifResponse.ok) {
+        throw new Error(`HTTP error. status: ${gifResponse.status}`);
       }
 
-      let json = await response.json();
+      let commentResponse = await fetch(
+        `http://localhost:3001/api/comments/${params.gif_id}`,
+        {
+          credentials: 'include',
+        },
+      );
+
+      if (!commentResponse.ok) {
+        throw new Error(`HTTP error. status: ${commentResponse.status}`);
+      }
+
+      let ratingResponse = await fetch(
+        `http://localhost:3001/api/ratings/${params.gif_id}`,
+        {
+          credentials: 'include',
+        },
+      );
+
+      if (!ratingResponse.ok) {
+        throw new Error(`HTTP error. status: ${ratingResponse.status}`);
+      }
+
+      let gif = await gifResponse.json();
+      let comments = await commentResponse.json();
+      let rating = await ratingResponse.json();
       return {
         gif_id: params.gif_id,
-        gif: json,
+        gif,
+        comments,
+        rating,
       };
     } catch (error) {
       console.error('Error fetching gif:', error);
