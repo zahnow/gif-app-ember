@@ -19,4 +19,11 @@ export default class AuthenticatedController extends Controller {
       queryParams: { q: this.searchTerm },
     });
   }
+
+  @action
+  handleKeydown(event) {
+    if (event.key === 'Enter') {
+      this.performSearch();
+    }
+  }
 }

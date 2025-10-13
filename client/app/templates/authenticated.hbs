@@ -6,6 +6,7 @@
       placeholder="Search for GIFs..."
       class="search-input"
       {{on "input" this.updateSearchTerm}}
+      {{on "keydown" this.handleKeydown}}
     />
     <button class="search-button" {{on "click" this.performSearch}}>🔍 Search</button>
   </div>
