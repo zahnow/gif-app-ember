@@ -1,12 +1,25 @@
 {{page-title "Gif Finder"}}
 <header class="hero-section">
-  <h1>🎬 GIF Finder</h1>
+  <h1><LinkTo @route="authenticated.home">🎬 GIF Finder</LinkTo></h1>
   <p class="tagline">Find and share your favorite GIFs!</p>
-  <div>
+  <div class="auth-section">
     {{#if this.session.isAuthenticated}}
-      <a {{on "click" this.invalidateSession}}>Logout</a>
+      <span class="user-info">
+        Welcome,
+        {{#if
+          this.session.currentUser.email
+        }}{{this.session.currentUser.email}}{{else}}User{{/if}}!
+      </span>
+      <button
+        type="button"
+        {{on "click" this.invalidateSession}}
+        class="logout-btn"
+      >
+        Logout
+      </button>
     {{else}}
-      <LinkTo @route="login">Login</LinkTo>
+      <LinkTo @route="login" class="login-link">Login</LinkTo>
+      <LinkTo @route="register" class="register-link">Register</LinkTo>
     {{/if}}
   </div>
 </header>

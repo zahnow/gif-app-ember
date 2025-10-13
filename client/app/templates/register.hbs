@@ -1,0 +1,41 @@
+<div>
+  <h1>Register</h1>
+
+  <form {{on "submit" this.handleRegister}}>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <Input
+        @id="username"
+        @value={{this.username}}
+        @placeholder="Enter username"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <Input
+        @id="password"
+        @type="password"
+        @value={{this.password}}
+        @placeholder="Enter password"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="confirm-password">Confirm Password:</label>
+      <Input
+        @id="confirm-password"
+        @type="password"
+        @value={{this.confirmPassword}}
+        @placeholder="Confirm password"
+      />
+    </div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p>
+    Already have an account?
+    <LinkTo @route="login">Log in here</LinkTo>
+  </p>
+</div>
