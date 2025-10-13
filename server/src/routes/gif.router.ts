@@ -3,11 +3,7 @@ import { requireSession } from "../middleware/requireSession";
 
 const gifRouter: Router = Router();
 
-gifRouter.get("/", async (req, res) => {
-  // if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
-  //   return res.status(401).send("Unauthorized");
-  // }
-
+gifRouter.get("/", requireSession, async (req, res) => {
   try {
     const gifQuery = await fetch(
       `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}&limit=40&offset=0&rating=g&bundle=messaging_non_clips`
@@ -37,11 +33,7 @@ gifRouter.get("/search", requireSession, async (req, res) => {
   }
 });
 
-gifRouter.get("/:id", async (req, res) => {
-  // if (req.headers.authorization !== `Bearer ${process.env.SERVER_SECRET}`) {
-  //   return res.sendStatus(401);
-  // }
-
+gifRouter.get("/:id", requireSession, async (req, res) => {
   const gifId = req.params.id;
   if (!gifId) {
     return res.status(400).send("GIF ID is required.");
