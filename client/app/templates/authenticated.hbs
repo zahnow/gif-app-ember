@@ -1,1 +1,13 @@
+<section class="search-section">
+  <h2>Search for GIFs</h2>
+  <div class="search-form">
+    <input
+      type="text"
+      placeholder="Search for GIFs..."
+      class="search-input"
+      {{on "input" this.updateSearchTerm}}
+    />
+    <button class="search-button" {{on "click" this.performSearch}}>🔍 Search</button>
+  </div>
+</section>
 {{outlet}}

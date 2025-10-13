@@ -1,0 +1,16 @@
+<p>Search Page</p>
+{{#if @model.gifs.length}}
+  {{#each @model.gifs as |gif|}}
+    <div class="gif-section">
+      <LinkTo @route="authenticated.gif" @model={{gif.id}}>
+        <img
+          src="{{gif.images.fixed_width.url}}"
+          alt="{{gif.title}}"
+          class="gif-image"
+        />
+      </LinkTo>
+    </div>
+  {{/each}}
+{{else}}
+  <p>No GIFs found.</p>
+{{/if}}
