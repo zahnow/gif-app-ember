@@ -32,7 +32,7 @@ export default class LoginController extends Controller {
       );
 
       // Redirect to intended route or home
-      this.router.transitionTo('home');
+      this.router.transitionTo('authenticated.home');
     } catch (error) {
       this.errorMessage = error.message || 'Login failed. Please try again.';
     } finally {

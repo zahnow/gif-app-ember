@@ -46,7 +46,7 @@ export default class GifRoute extends Route {
         gif_id: params.gif_id,
         gif,
         comments,
-        rating,
+        rating: rating.rating || 0,
       };
     } catch (error) {
       console.error('Error fetching gif:', error);
