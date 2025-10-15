@@ -1,0 +1,19 @@
+<h2>Comments</h2>
+
+<textarea
+  placeholder="Add your comment here..."
+  value={{this.newComment}}
+  {{on "input" this.updateComment}}
+></textarea>
+<button {{on "click" this.submitComment}}>Submit</button>
+
+<ul>
+  {{#each @comments as |comment|}}
+    <CommentItem
+      @comment={{comment}}
+      @onDelete={{@onDeleteComment}}
+      @onSave={{@onSaveComment}}
+      @currentUserId={{@currentUserId}}
+    />
+  {{/each}}
+</ul>

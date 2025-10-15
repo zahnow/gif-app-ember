@@ -7,11 +7,10 @@ export default class GifController extends Controller {
   @service router;
   @service session;
 
-  @tracked newComment = '';
-  @tracked userRating = this.model.rating || 0;
+  @tracked userRating = this.model?.rating || 0;
 
-  get commentAuthor() {
-    return this.session.data.authenticated.id;
+  get currentUserId() {
+    return this.session.data.authenticated.user.id;
   }
 
   @action
@@ -67,38 +66,48 @@ export default class GifController extends Controller {
   }
 
   @action
-  updateComment(event) {
-    return;
+  async deleteComment(comment) {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/comments/${comment.comment.id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete comment');
+      }
+
+      this.router.refresh();
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+      alert('Failed to delete comment. Please try again.');
+    }
   }
 
   @action
-  async submitComment() {
-    if (this.newComment.trim() === '') {
-      return; // Prevent empty comments
-    }
-
-    const gifId = this.model.gif.id; // Get the GIF ID from the model
-    const comment = this.newComment;
-
+  async saveComment(commentId, newCommentText) {
     try {
-      const response = await fetch('http://localhost:3001/api/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `http://localhost:3001/api/comments/${commentId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ comment: newCommentText }),
+          credentials: 'include',
         },
-        body: JSON.stringify({ gifId, comment }),
-        credentials: 'include',
-      });
-
+      );
       if (!response.ok) {
-        throw new Error('Failed to submit comment');
+        throw new Error('Failed to update comment');
       }
-
-      this.newComment = '';
       this.router.refresh();
     } catch (error) {
-      console.error('Error submitting comment:', error);
-      alert('Failed to submit comment. Please try again.');
+      console.error('Error updating comment:', error);
+      alert('Failed to update comment. Please try again.');
     }
   }
 }

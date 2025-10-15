@@ -12,18 +12,11 @@
 />
 <button {{on "click" this.submitRating}}>Submit Rating</button>
 <button {{on "click" this.deleteRating}}>Delete Rating</button>
-<h2>Comments</h2>
-<textarea
-  placeholder="Add your comment here..."
-  value={{this.newComment}}
-  {{on "input" this.updateComment}}
-></textarea>
-<button {{on "click" this.submitComment}}>Submit</button>
-<ul>
-  {{#each @model.comments as |comment|}}
-    <li>{{comment.comment.comment}} - {{comment.user}}</li>
-    {{!-- {{#if}}
-      <button {{on "click" this.deleteComment}}>Delete</button>
-    {{/if}} --}}
-  {{/each}}
-</ul>
+
+<CommentSection
+  @comments={{@model.comments}}
+  @gifId={{@model.gif.id}}
+  @currentUserId={{this.currentUserId}}
+  @onDeleteComment={{this.deleteComment}}
+  @onSaveComment={{this.saveComment}}
+/>

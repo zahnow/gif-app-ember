@@ -1,0 +1,19 @@
+<li>
+  {{#if this.isEditing}}
+    <textarea
+      value={{this.editedComment}}
+      {{on "input" this.updateEditedComment}}
+    ></textarea>
+    <button {{on "click" this.saveEdit}}>Save</button>
+    <button {{on "click" this.cancelEdit}}>Cancel</button>
+  {{else}}
+    {{@comment.comment.comment}}
+    -
+    {{@comment.user}}
+
+    {{#if this.isAuthor}}
+      <button {{on "click" this.startEdit}}>Edit</button>
+      <button {{on "click" this.deleteComment}}>Delete</button>
+    {{/if}}
+  {{/if}}
+</li>
